@@ -1,0 +1,8 @@
+# Azure Cosmos DB Python SDK
+azure-cosmos>=4.5.1
+
+# For better console interface
+rich>=13.0.0
+
+# For configuration management
+python-dotenv>=1.0.0
