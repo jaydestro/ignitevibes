@@ -1,224 +1,136 @@
-# 🎵 IgniteVibes - Azure Cosmos DB Demo Application
+# IgniteVibes — Azure Cosmos DB Demo (Python)
 
-A complete demonstration of Azure Cosmos DB development featuring a Python console application for managing "vibes" data, with Azure Cosmos DB vNext Docker emulator setup and best practices implementation.
+A compact demo of Azure Cosmos DB development. It includes a Python console app for managing “vibes” data and a local Azure Cosmos DB vNext Docker emulator setup.
 
-## 🚀 Quick Start
+## Quick start
 
-**For complete setup instructions, see [SETUP.md](./SETUP.md)**
+See `SETUP.md` for full instructions.
 
 ```bash
-# 1. Start Cosmos DB Emulator
+# 1) Start the Azure Cosmos DB Emulator
 ./start-cosmos-emulator.sh
 
-# 2. Set up Python environment
+# 2) Create and activate a virtual environment
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1  # Windows
+.\.venv\Scripts\Activate.ps1   # Windows
 # source .venv/bin/activate    # Linux/Mac
 
-# 3. Install dependencies
+# 3) Install dependencies
 pip install -r requirements.txt
 
-# 4. Run the application
+# 4) Run the app
 python vibes_manager.py
 ```
 
-## 🎯 Key Features
+## Features
 
-- **🎵 Interactive Console**: Rich-formatted user interface with colorful tables and panels
-- **🗃️ Full CRUD Operations**: Add, remove, and list vibes with comprehensive validation
-- **� Smart Delete Interface**: Select vibes by number instead of copying UUIDs
-- **�🐳 Docker Emulator**: Azure Cosmos DB vNext emulator with automated setup scripts
-- **🔒 Security Best Practices**: Environment-based configuration and SSL support
-- **📊 Data Explorer**: Web interface for database management at http://localhost:1234
-- **🛡️ Robust Error Handling**: Comprehensive error handling with user-friendly feedback
-- **⚡ Context Management**: Proper resource cleanup and connection management
-- **🎨 Rich UI Components**: Beautiful tables, panels, and interactive prompts
+- Interactive console UI with tables and prompts
+- Full CRUD: add, remove, list
+- Number-based delete (no UUID copy/paste)
+- Local Azure Cosmos DB vNext emulator with helper scripts
+- Environment-based config and optional SSL handling
+- Data Explorer at `http://localhost:1234`
+- Clear error messages and graceful cleanup
 
-## 📋 Prerequisites
+## Prerequisites
 
 - Docker Desktop
-- Python 3.7 or later
-- WSL2 (Windows users recommended)
+- Python 3.7+
+- WSL2 recommended for Windows
 
-## �️ Installation & Setup
+## Installation and setup
 
-### 1. Clone and Navigate
+1) Clone the repo
 ```bash
 git clone <repository-url>
 cd ignitevibes
 ```
 
-### 2. Start Cosmos DB Emulator
+2) Start the emulator
 ```bash
-# Using the provided script (Linux/WSL)
+# With the provided script (Linux/WSL)
 ./start-cosmos-emulator.sh
 
-# Or manually with Docker
+# Or manually
 docker run --detach --publish 8081:8081 --publish 1234:1234 \
   mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:vnext-preview \
   --protocol https
 ```
 
-### 3. Set Up Python Environment
+3) Create a virtual environment and install dependencies
 ```bash
-# Create virtual environment
 python -m venv .venv
+.\.venv\Scripts\Activate.ps1   # Windows
+# source .venv/bin/activate    # Linux/Mac
 
-# Activate virtual environment
-.\.venv\Scripts\Activate.ps1  # Windows PowerShell
-# source .venv/bin/activate     # Linux/Mac
-
-# Install dependencies
 pip install -r requirements.txt
 ```
 
-### 4. Configure Environment
-Copy the example environment file and adjust if needed:
+4) Configure environment
 ```bash
-copy .env.example .env  # Windows
-# cp .env.example .env  # Linux/Mac
+copy .env.example .env  # Windows (cmd)
+# cp .env.example .env  # Linux/Mac or PowerShell (Copy-Item)
 ```
 
-### 5. Run the Application
+5) Run
 ```bash
 python vibes_manager.py
 ```
 
-## 🎮 Application Usage
+## Usage
 
-The application provides an interactive menu with enhanced user experience:
+- Add a vibe: enter title, optional description, and category (defaults to “general”).
+- Remove a vibe: choose by number, review details, confirm deletion.
+- List vibes: view a table with truncated IDs, titles, categories, and dates.
+- Exit: closes resources cleanly.
 
-### 1. 📝 Add a New Vibe
-
-- Enter a title for your vibe
-- Add a description (optional)
-- Specify a category (defaults to "general")
-- Automatic UUID generation and timestamp tracking
-
-### 2. 🗑️ Remove a Vibe (Enhanced Interface)
-
-- **Numbered Selection**: View all vibes with simple numbers (1, 2, 3...)
-- **Detailed Preview**: See full vibe details before deletion
-- **Interactive Scrolling**: Easy navigation through your vibe collection
-- **Confirmation Dialog**: Double-check before permanent deletion
-- **No More UUID Copying**: User-friendly alternative to copying long IDs
-
-Example deletion flow:
-```
-🗑️ Select a vibe to remove (12 total):
-
-Available vibes:
-  1. Coffee Time [general] (01/15/25)
-  2. Beach Sunset [nature] (01/14/25)
-  3. Coding Flow [productivity] (01/13/25)
-  ...
-  cancel. Go back to main menu
-
-Enter the number of the vibe to remove: 2
-
-� Selected vibe details:
-Title:       Beach Sunset
-Description: Relaxing evening by the ocean
-Category:    nature
-ID:          a1b2c3d4-e5f6-7890-abcd-ef1234567890
-Created:     2025-01-14T18:30:00.123456
-
-⚠️ Are you sure you want to permanently delete 'Beach Sunset'? (y/N):
-```
-
-### 3. 📋 List All Vibes
-
-- View all vibes in a beautifully formatted table
-- Shows ID (truncated), title, description, category, and creation date
-- Automatic description truncation for readability
-- Total count display
-
-### 4. ❌ Exit
-
-- Graceful application termination
-- Automatic resource cleanup
-
-## 📁 Project Structure
+## Project structure
 
 ```
 ignitevibes/
-├── 🐍 vibes_manager.py          # Main Python console application
-├── 🐳 start-cosmos-emulator.sh  # Cosmos DB emulator management script
-├── ⚙️  .env                     # Environment configuration
-├── ⚙️  .env.example             # Environment configuration template
-├── 📋 requirements.txt          # Python dependencies
-├── 🐧 setup_vibes.sh           # Linux/WSL setup automation
-├── 📚 SETUP.md                 # Complete GitHub setup instructions
-├── 📖 README.md                # This file (project overview)
-├── 📊 PROJECT_SUMMARY.md       # Detailed project breakdown
+├── vibes_manager.py             # Console app
+├── start-cosmos-emulator.sh     # Emulator helper
+├── .env / .env.example          # Configuration
+├── requirements.txt             # Dependencies
+├── setup_vibes.sh               # Linux/WSL setup
+├── SETUP.md                     # Full setup guide
+├── README.md                    # This overview
+├── PROJECT_SUMMARY.md           # Deeper breakdown
 └── .github/
-    └── 📝 copilot-instructions.md  # GitHub Copilot context
+    └── copilot-instructions.md  # GitHub Copilot context
 ```
 
-## ✨ Recent Enhancements
+## Configuration
 
-### Enhanced Delete Interface (v2.0)
-- **User-Friendly Selection**: No more copying UUIDs! Select vibes by simple numbers (1, 2, 3...)
-- **Interactive Preview**: See full vibe details before confirming deletion
-- **Improved UX**: Scroll through your vibes with ease and confidence
-- **Smart Formatting**: Dates, categories, and descriptions beautifully formatted
-- **Safety First**: Double confirmation prevents accidental deletions
-
-### Improved Error Handling
-- **Comprehensive Exception Handling**: Specific handling for Azure Cosmos DB errors
-- **User-Friendly Messages**: Clear, actionable error messages with helpful suggestions
-- **Graceful Degradation**: Application continues running even when individual operations fail
-- **Connection Validation**: Automatic retry logic and connection health checks
-
-### Enhanced Console Interface
-- **Rich UI Components**: Beautiful tables, panels, and interactive prompts
-- **Color-Coded Output**: Status indicators with colors and emojis for better visibility
-- **Responsive Design**: Adapts to terminal width and content length
-- **Professional Formatting**: Consistent styling throughout the application
-
-## 🔧 Configuration Options
-
-You can customize the application by modifying the `.env` file:
+Update `.env` to customize:
 
 | Variable | Description | Default |
-|----------|-------------|---------|
-| `COSMOS_ENDPOINT` | Cosmos DB endpoint URL | `https://localhost:8081` |
-| `COSMOS_KEY` | Account key for authentication | (emulator default key) |
-| `COSMOS_DATABASE_NAME` | Database name | `vibes` |
-| `COSMOS_CONTAINER_NAME` | Container name | `items` |
-| `DISABLE_SSL_VERIFICATION` | Disable SSL for local emulator | `true` |
+|---|---|---|
+| `COSMOS_ENDPOINT` | Emulator endpoint | `https://localhost:8081` |
+| `COSMOS_KEY` | Account key | emulator default key |
+| `COSMOS_DATABASE_NAME` | Database | `vibes` |
+| `COSMOS_CONTAINER_NAME` | Container | `items` |
+| `DISABLE_SSL_VERIFICATION` | Disable SSL verification for local dev | `true` |
 
-## 🏗️ Architecture & Best Practices
+## Architecture and practices
 
-This application follows Azure best practices:
+Security
+- Environment variables for configuration
+- Supports SSL/TLS; local SSL verification can be disabled for the emulator
+- No credentials hardcoded
 
-### Security
-- ✅ Uses environment variables for configuration
-- ✅ Supports SSL/TLS connections
-- ✅ Handles SSL verification for local development
-- ✅ No hardcoded credentials in source code
+Error handling
+- Specific handling for Azure Cosmos DB errors
+- Clear, actionable messages
+- App continues when individual operations fail
 
-### Error Handling
-- ✅ Comprehensive exception handling
-- ✅ Specific Cosmos DB error handling
-- ✅ User-friendly error messages
-- ✅ Graceful degradation
+Performance and code quality
+- SDK connection management, context managers, and cleanup
+- Simple, efficient queries
+- Type hints and docstrings
+- Console UI built with Rich
 
-### Performance
-- ✅ Connection pooling (handled by SDK)
-- ✅ Proper resource cleanup
-- ✅ Context manager pattern
-- ✅ Efficient querying with SQL
-
-### Code Quality
-- ✅ Type hints for better maintainability
-- ✅ Docstrings for all functions and classes
-- ✅ Separation of concerns
-- ✅ Rich console interface for better UX
-
-## 🗃️ Database Schema
-
-Vibe items are stored with the following structure:
+## Database schema
 
 ```json
 {
@@ -232,65 +144,28 @@ Vibe items are stored with the following structure:
 }
 ```
 
-## 🚨 Troubleshooting
+## Troubleshooting
 
-### Connection Issues
-- Ensure Cosmos DB emulator is running on port 8081
-- Check if the Data Explorer is accessible at http://localhost:1234
-- Verify the `.env` file has correct connection details
+Connection
+- Ensure the emulator is running on `8081`
+- Verify Data Explorer at `http://localhost:1234`
+- Confirm `.env` values
 
-### SSL Certificate Issues
-- For local emulator, ensure `DISABLE_SSL_VERIFICATION=true`
-- For production, download and install the emulator certificate
+SSL
+- For the emulator, set `DISABLE_SSL_VERIFICATION=true`
+- For production, install the emulator certificate
 
-### Package Installation Issues
-- Make sure you're using Python 3.7 or later
-- Try upgrading pip: `python -m pip install --upgrade pip`
-- Use a virtual environment to avoid conflicts
+Packages
+- Use Python 3.7+ and a virtual environment
+- Upgrade pip if needed: `python -m pip install --upgrade pip`
 
-## 📖 References
+## Tools used
 
-- [Azure Cosmos DB Python SDK Documentation](https://docs.microsoft.com/en-us/azure/cosmos-db/sql/sql-api-python-application)
-- [Azure Cosmos DB Emulator](https://docs.microsoft.com/en-us/azure/cosmos-db/emulator-linux)
-- [Rich Python Library](https://rich.readthedocs.io/)
+- VS Code (preferred IDE)
+- Azure Cosmos DB Linux-based emulator - vNext (preview): https://learn.microsoft.com/azure/cosmos-db/emulator-linux
+- Azure Databases VS Code Extension: https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-cosmosdb
+- GitHub Copilot Chat VS Code extension (natural-language prompts to produce code): https://github.com/microsoft/vscode-copilot-chat
 
-## 🤝 Contributing & Extending
+## License
 
-This is a demonstration application showcasing Azure Cosmos DB best practices. Feel free to extend it with additional features:
-
-### Suggested Enhancements
-- **Search Functionality**: Add text search across vibe titles and descriptions
-- **Bulk Operations**: Implement bulk delete or bulk import capabilities
-- **Category Management**: Create a category management system with predefined options
-- **Data Export/Import**: Add JSON/CSV export and import functionality
-- **Vibe Analytics**: Display statistics about your vibe collection
-- **Backup/Restore**: Implement backup and restore functionality
-- **Web Interface**: Create a web-based interface using Flask or FastAPI
-- **Mobile App**: Build a mobile companion app
-- **Advanced Filtering**: Add date range, category, and keyword filtering
-- **Tagging System**: Implement a flexible tagging system for vibes
-
-### Development Best Practices
-- Follow the existing code patterns and type hints
-- Maintain comprehensive error handling
-- Use the Rich library for consistent UI formatting
-- Add proper docstrings for new functions
-- Test with both the local emulator and Azure Cosmos DB
-- Update this README when adding new features
-
-### Testing Your Changes
-```bash
-# Lint your Python code
-python -m py_compile vibes_manager.py
-
-# Test with the emulator
-./start-cosmos-emulator.sh
-python vibes_manager.py
-
-# Test error handling
-# (Stop the emulator and test connection failures)
-```
-
-## 📄 License
-
-This project is provided as an educational example following Azure best practices.
+This project is an educational example that demonstrates Azure Cosmos DB best practices.
